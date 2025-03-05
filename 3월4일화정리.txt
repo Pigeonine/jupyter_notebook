@@ -1,0 +1,60 @@
+# 2025 03 04 수업 이슈  
+
+1. RestController 작성하기  
+2. 예외처리 전역적으로 처리하기  -> spring problemdetail(최신?)
+3. Requestly 로 받은 요청 테스트  
+4. 스웨거 문서 작성
+
+1. RestController 작성하기
+@RestController -> @Controller + @ResponseBody?
+
+client요청은 get/post 방식으로 나뉨. 
+get방식(Get it): 페이지 연결이 주 목적, (데이터 전달이 주 목적이 아님), 모든 요청의 기본 (약 90%이상 차지) (데이터 전달이 가능하긴 하나, 많은 양을 보내지 않음) (데이터가 객체(Req)에 담기지 않는다)
+
+Request: request.line, Header, Body로 구성.
+request.line에 요청 부분(member)과 방식(get/post)적힘.
+Header: browser 정보 같은 핵심 정보 들어감.
+Body에는 map으로 정보 들어감 (id = sds, pw=1234, name=~), get 방식의 경우 body에 내용이 담기지 않는다.
+
+get의 경우 주소에 query문이 담긴다?: http://203.234.12.225:9000/members?id=sds&name=James -> 보안 취약, 길이 제약, (객체에 담기지 않음/정보 전달이 목적이 아님)
+
+post(Post office의 줄임말): 서버로 ~데이터 보낼테니, 서버는 해당 데이터를 서비스로 처리한 결과를 다시 나한테 보내라. 
+데이터 전달이 주 목적.
+
+Request 객체
+request.line: 요청 url + post(members post) (요청 url의 이름은 복수형으로?(convention))
+body: 원하는 정보 담김.
+
+url: http://203.234.12.225:9000/members
+
+restAPI: Get/Post/Put/Delete -> 각각 select/insert/update/delete 쿼리가 돌아간다.
+
+name과 address내용(폼값) 작성하고 버튼 눌렀을때 get 요청되는 경우
+
+https://hongong.hanbit.co.kr/http-%EC%83%81%ED%83%9C-%EC%BD%94%EB%93%9C-%ED%91%9C-1xx-5xx-%EC%A0%84%EC%B2%B4-%EC%9A%94%EC%95%BD-%EC%A0%95%EB%A6%AC/
+status code: OK(200), Created(201), Accepted(202) (3가지는 알아야함)
+403: security와 관련, 중요
+
+Presentation layer    BusinessLogic Layer   자원 접근 layer
+@RestController          @Service
+request->
+<-DI
+
+자원접근 레이어/Business Logic Layer 모두 커맨드 라인 러너로 테스트, Business Logic layer에서 error나도 자원접근 레이어 부분은 체크할 필요 없을것(단위 테스트 했다면)
+Presentation layer(client 부)의 경우 request로 테스트, 
+
+단위 테스트 정책을 어떻게 수립할지 정하는 것 중요
+
+
+Ctrl+shift+o로 모든 import 자동
+
+200과 201 구분하기, 204(no content)알아두기, 
+
+오늘 프로젝트: 컨트롤러, 단위 테스트 request, 내일 발표: swagger?, service layer에서의 알고리즘 아이디어 보이기,
+1.스웨거 문서
+2.서비스 레이어 알고리즘 적용 아이디어 어떤 알고리즘 패ㅐ턴을 적용했는지....
+
+
+update마다 중복되서 더해진다?
+
+파티 분위기의 숙소 E, 조용히 쉴 수 있는 숙소 I, 현실적이고 실용적인 숙소 S
